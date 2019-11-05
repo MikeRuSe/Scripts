@@ -1,4 +1,4 @@
-﻿### LOGS ###
+### LOGS ###
 mkdir (Get-Process).id -Force
 
 (Get-Process -Id 4).Threads.id
