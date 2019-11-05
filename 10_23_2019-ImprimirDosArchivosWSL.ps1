@@ -19,5 +19,3 @@ foreach ($pruebas1 in 1..5)
     New-Item -Name $prueba -ItemType file -Path $pruebas1 -Value "hola"
     }
  }
-
- #ASO 18, 24, 25, 27, 01, 02, 04, 07, 08, 09, 11, 15, 16, 18, 22, 23
