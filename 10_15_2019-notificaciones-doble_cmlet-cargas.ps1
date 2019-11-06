@@ -1,7 +1,6 @@
-﻿# Saber el tiempo que lleva alguien en Facebook
+# Saber el tiempo que lleva alguien en Facebook
 
 Get-Process | Select-Object name,Id,TotalProcessorTime
-
 Get-WmiObject win32_process | select commandline | Format-Custom
 
 $Proceso=Get-Process -Name notepad
