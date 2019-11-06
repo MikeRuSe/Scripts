@@ -1,4 +1,4 @@
-﻿"nombre,operacion" > operar.csv
+"nombre,operacion" > operar.csv
 "juan,0" >> operar.csv
 "pedro,1" >> operar.csv
 notepad operar.csv
