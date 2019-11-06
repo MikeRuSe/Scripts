@@ -1,1 +1,1 @@
-﻿Get-NetTCPConnection | select LocalPort | where {$_.LocalPort -EQ 80}
+Get-NetTCPConnection | select LocalPort | where {$_.LocalPort -EQ 80}
