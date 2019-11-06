@@ -1,4 +1,4 @@
-﻿while(1)
+while(1)
 {
    $usuario = ((Invoke-WebRequest -Uri 'https://randomuser.me/api/?format=json').content | ConvertFrom-JSON)
    $email=$usuario.results.email
