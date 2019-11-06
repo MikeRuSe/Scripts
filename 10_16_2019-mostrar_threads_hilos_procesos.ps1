@@ -1,4 +1,4 @@
-﻿# Mostrar threads
+# Mostrar threads
 (Get-Process | select name,Threads).Threads.id
 
 # Nombre del proceso que tiene un identificador
