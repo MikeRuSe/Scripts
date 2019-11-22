@@ -1,4 +1,4 @@
-﻿## Preguntar el tipo de Instalación:
+## Preguntar el tipo de Instalación:
 echo "XAMPP: 1"
 echo "Otro valor: DOCKER"
 $juas = Read-Host "¿Como lo instalamos?"
@@ -120,7 +120,7 @@ services:
   wordpress:
     image: wordpress
     ports:
-      - 10001:80
+      - 6666:80
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: juan
@@ -145,12 +145,12 @@ docker-compose -f {compose file name} up
 
 ## Subir los archivos al servidor mediante scp y un puerto distinto al 22
 # Codigo simplificado
-scp -P 7483 -pr A:\Programas\Xampp\htdocs\wp\wp100\wp-content\uploads\Images\ usuario@dominio.duckdns.org:/home/usuario/Wordpress/wp-content/uploads/2019 -Credential (Get-Credential)
+scp -P 3333 -pr A:\Programas\Xampp\htdocs\wp\wp100\wp-content\uploads\Images\ usuario@dominio.duckdns.org:/home/usuario/Wordpress/wp-content/uploads/2019 -Credential (Get-Credential)
 # Poweshell
-Set-SCPFile –ComputerName dominio.duckdns.org –Port 7483  –RemotePath /home/usuario/Wordpress/wp-content/uploads/2019 –LocalFile A:\Programas\Xampp\htdocs\wp\wp100\wp-content\uploads\Images\hola.txt
+Set-SCPFile –ComputerName dominio.duckdns.org –Port 3333  –RemotePath /home/usuario/Wordpress/wp-content/uploads/2019 –LocalFile A:\Programas\Xampp\htdocs\wp\wp100\wp-content\uploads\Images\hola.txt
 
 ## Verificar que los archivos se encuntran en el servidor
-New-SSHSession -Port 7483 -ComputerName dominio.duckdns.org -Credential (Get-Credential)
+New-SSHSession -Port 3333 -ComputerName dominio.duckdns.org -Credential (Get-Credential)
 cd /home/usuario/Wordpress/wp-content/uploads/2019
 ls
 
@@ -158,7 +158,7 @@ ls
     www.dominio.ml
     # Obtener dominio gratuito en: https://my.freenom.com
 ## Con redirect a DNS para no tener que estar introduciendo la IP en el proveedor de domino cada vez que la IP cambie en caso de no ser estática:
-    dominio.duckdns.org:10001
+    dominio.duckdns.org:6666
 ## Scripts opensource .sh para Linux para actualizar la IP del dominio en: https://www.duckdns.org/
 ## Plugin de SEO
 php.exe A:\Programas\Xampp\php\wp-cli.phar plugin install wordpress-seo --activate 
