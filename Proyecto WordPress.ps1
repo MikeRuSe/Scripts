@@ -1,6 +1,6 @@
 ﻿## Preguntar el tipo de Instalación:
 echo "XAMPP: 1"
-echo "Lo otro valor DOCKER"
+echo "Otro valor: DOCKER"
 $juas = Read-Host "¿Como lo instalamos?"
     if($juas -eq 1)
     {
