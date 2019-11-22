@@ -95,7 +95,7 @@ foreach($usuarios in $var)
     A:\Programas\Xampp\php\php.exe A:\Programas\Xampp\php\wp-cli.phar core download
     A:\Programas\Xampp\php\php.exe A:\Programas\Xampp\php\wp-cli.phar config create --dbuser=root --dbname=wptest$usuarios
     A:\Programas\Xampp\php\php.exe A:\Programas\Xampp\php\wp-cli.phar db create
-    A:\Programas\Xampp\php\php.exe A:\Programas\Xampp\php\wp-cli.phar core install --url=localhost/wp/$usuarios --title="WordPress $usuarios" --admin_user=admin --admin_password=Andel2019 --admin_email=admin@$usuarios.com
+    A:\Programas\Xampp\php\php.exe A:\Programas\Xampp\php\wp-cli.phar core install --url=localhost/wp/$usuarios --title="WordPress $usuarios" --admin_user=admin --admin_password=C0NTR4S3ÑA --admin_email=admin@$usuarios.com
     A:\Programas\Xampp\php\php.exe A:\Programas\Xampp\php\wp-cli.phar plugin install wp-super-cache --activate 
     php.exe A:\Programas\Xampp\php\wp-cli.phar plugin install wordpress-importer --activate
     foreach($plugin in $var2)
