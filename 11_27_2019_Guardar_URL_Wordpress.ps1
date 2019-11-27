@@ -12,13 +12,6 @@ foreach($user in $web)
     ## Creación de la DB
     php.exe A:\Programas\Xampp\php\wp-cli.phar db create
     php.exe A:\Programas\Xampp\php\wp-cli.phar core install --url=localhost/wp/$user --title="Estás en la web de $user" --admin_user=admin --admin_password=C0NTR4SEN4! --admin_email=admin@email.com 
-    # Ping
-    echo "Introduce una dirección IP o el dominio:"
-    $ping= Read-Host
-    $publicar= ping $ping 
-    $publicar  
-    php.exe A:\Programas\Xampp\php\wp-cli.phar post create --post_type=page --post_title="Ping a $ping" --post_content="$publicar" --post_status=publish
-
 }
 
 # Guardar links en Worpress
