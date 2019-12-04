@@ -16,6 +16,7 @@ if($hash1 -eq $hash4){
         $pass= $create.split(",")[1]
         New-ADUSer -Name "$user" -Sam $user -Path "OU=uo1,DC=Andel,DC=Local" -AccountPassword (ConvertTo-SecureString "$pass passwor0001" -AsPlainText -force) -Enable $true
         echo "usuario $user creado correctamente"
+        mkdir $user -Whatif
     }
 }
 else{
