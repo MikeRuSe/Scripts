@@ -104,11 +104,11 @@ If ($opcion -eq "5"){
     else{
 Else {
     Write-Host "No se analizará nada" -ForegroundColor Red
+     }
     }
-    }
-    }
-    }
-    }
-    }
+   }
+  }
+ }
+}
     
    
