@@ -2,7 +2,8 @@
 ## Buscar el hash de un archivo en VirusTotal
 ## Testeado y desarrollado en Windows 8.1 Pro y en Windows 10 Pro
 ## Registrar la API Key: https://www.virustotal.com/gui/join-us
-    $VT_API = "Tu API Key Aquí"
+## Es recomendable cambiar la API de abajo
+    $VT_API = "45eb3db57881fe217aad8935f2f7ce0e025098f02545649390c4ff6ab491a977"
 ## Establecemos el protocolo TLS 1.2
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Function submit-VTHash($VThash)
