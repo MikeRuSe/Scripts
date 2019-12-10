@@ -57,7 +57,7 @@ If ($opcion -eq "2"){
     $VTresultado = submit-VTHash($hash)
     ## RESULTADOS
         Write-Host -ForegroundColor Cyan "Fuente                : " -NoNewline; Write-Host $VTresultado.resource
-        Write-Host -ForegroundColor Cyan "Fecha del analáisis   : " -NoNewline; Write-Host $VTresultado.scan_date
+        Write-Host -ForegroundColor Cyan "Fecha del análisis    : " -NoNewline; Write-Host $VTresultado.scan_date
         Write-Host -ForegroundColor Cyan "Errores encontrados   : " -NoNewline; Write-Host $VTresultado.positives
         Write-Host -ForegroundColor Cyan "Análisis totales      : " -NoNewline; Write-Host $VTresultado.total
         Write-Host -ForegroundColor Cyan "Link del análisis     : " -NoNewline; Write-Host $VTresultado.permalink
