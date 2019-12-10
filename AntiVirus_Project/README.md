@@ -5,4 +5,5 @@ Script en PowerShell con el que podemos:
 - Analizar un archivo
 - Analizar una carpeta y sus archivos
 - Recuperar contraseñas WiFi
+###
 by MikeRuSe
