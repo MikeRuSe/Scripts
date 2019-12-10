@@ -1,7 +1,8 @@
+```PowerShell
 ## Buscar el hash de un archivo en VirusTotal
 ## Testeado y desarrollado en Windows 8.1 Pro y en Windows 10 Pro
 ## Registrar la API Key: https://www.virustotal.com/gui/join-us
-    $VT_API = "key de la api registrada"
+    $VT_API = "Api_Key_URL_ARRIBA"
 
 ## Set TLS 1.2
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -18,6 +19,7 @@ Start-Sleep -Milliseconds 200
 Write-Host "
 1 Un hash
 2 Un archivo
+3 Una carpeta y sus archivos (apareceran cosas en rojo...)
 Otro: Nada
 " -ForegroundColor Magenta
 Start-Sleep -Milliseconds 200
@@ -38,7 +40,7 @@ If ($opcion -eq "1"){
     }
     Else{
 If ($opcion -eq "2"){
-        ## Escriba el hash
+        ## Archivo
         Write-Host "Introduzca la ubicación de la carpeta del archivo (C:\Users\Administrador) sin la barra del final" -ForegroundColor Yellow
         $ubicacion= Read-Host "Introduzca un valor"
          Write-Host "Introduzca del archivo (Archivo.txt)" -ForegroundColor Yellow
@@ -63,7 +65,36 @@ If ($opcion -eq "2"){
             Write-Host -ForegroundColor Green "No hay riesgos"
             }
         }
+If ($opcion -eq "3"){
+        ## Análisis de directorios y sus archivos
+        $dir= Read-Host "Inserta la dirección del directorio a analizar"
+        foreach($directorio in (Get-ChildItem -Force $dir -Recurse).FullName){
+        Start-Sleep -Milliseconds 10
+            $hash= Get-FileHash -LiteralPath $directorio -Algorithm SHA256
+        Start-Sleep -Milliseconds 10
+            $hash= ($hash.Hash).ToLower()
+        Start-Sleep -Milliseconds 10
+            ## Introducimos el hash en la función
+            $VTresultado = submit-VTHash($hash)
+            ## RESULTADOS
+            Write-Host -ForegroundColor Cyan "Fuente                : " -NoNewline; Write-Host $VTresultado.resource
+            Write-Host -ForegroundColor Cyan "Fecha del analáisis   : " -NoNewline; Write-Host $VTresultado.scan_date
+            Write-Host -ForegroundColor Cyan "Errores encontrados   : " -NoNewline; Write-Host $VTresultado.positives
+            Write-Host -ForegroundColor Cyan "Análisis totales      : " -NoNewline; Write-Host $VTresultado.total
+            Write-Host -ForegroundColor Cyan "Link del análisis     : " -NoNewline; Write-Host $VTresultado.permalink
+            $virus= $VTresultado.positives
+            if ($virus -gt 0){
+                Write-Host -ForegroundColor Red "Se han detectado amenazas"
+                Write-Host -ForegroundColor DarkRed "Ubicación de la amenaza  : " -NoNewline; Write-Host -ForegroundColor Gray "$archivo "
+                }
+            else{
+                Write-Host -ForegroundColor Green "No hay riesgos"
+               }
+          }
+     }
+
 Else{
         Write-Host "No se analizará nada" -ForegroundColor Red
     }
 }
+```
