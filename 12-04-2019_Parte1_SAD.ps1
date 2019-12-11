@@ -70,8 +70,8 @@ If ($opcion -eq "4"){
     ## Realizar un script que compruebe un puerto en un servidor.
     Write-Host "Script que comprueba un puerto en un servidor" -ForegroundColor Magenta
 
-    $ip= Read-Host "Introduce el servidor o la dirección IP:" -ForegroundColor DarkGreen 
-    $port= Read-Host "Puerto" -ForegroundColor DarkGreen 
+    $ip= Read-Host "Introduce el servidor o la dirección IP:" 
+    $port= Read-Host "Puerto" 
     Write-Host "Dirección IP introducida:	$ip" -ForegroundColor DarkGreen 
     Write-Host "Puerto TCP introducida:	$port" -ForegroundColor DarkGreen 
     $connection = new-object net.Sockets.TcpClient
