@@ -121,7 +121,9 @@ Else{
   }
  }
 }
-echo "
+
+### OMITIR LO SIGUIENTE, AÚN SE ENCUENTRA EN DESAROLLO
+"
 ## Para crear Logs:
         ## Crear archivo de LOGS:
         cd C:\DESCARGAS\Logs
@@ -130,7 +132,8 @@ echo "
         $minuto= (date).Minute
             mkdir $dia -Force
             cd $dia
-            "LOGS" > "$hora~$minuto.txt"
-                Write-Host " "
-                Write-Host "Análisis de directorios y sus archivos" -ForegroundColor Cyan
-        ## Al final de cada codigo añadimos: ´>> $hora~$minuto.txt´"
+            'LOGS' > $hora~$minuto.txt
+                Write-Host ' '
+                Write-Host 'Análisis de directorios y sus archivos' -ForegroundColor Cyan
+        ## Al final de cada codigo añadimos: >> $hora~$minuto.txt
+        "
