@@ -76,7 +76,7 @@ If ($opcion -eq "3"){
         ## Análisis de directorios y sus archivos
         $dir= Read-Host "Introduzca la dirección del directorio a analizar"
         ## Obtenemos todos los archivos de la carpeta seleccionada con la función -Recurse y con -FullName obtenemos la ruta exacta de cada archivo de la carpeta
-        foreach($directorio in (Get-ChildItem -Force $dir -Recurse).FullName){
+        foreach($directorio in (Get-ChildItem -File -Force $dir -Recurse).FullName){
             ## Se obtiene el hash del archivo que se va a analizar. Si es un directorio saldrá un error del tipo NULL en la shell
             $hash= Get-FileHash -LiteralPath $directorio -Algorithm SHA256
             ## Convertimos el hash a minúsculas
