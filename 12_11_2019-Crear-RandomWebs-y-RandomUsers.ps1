@@ -45,5 +45,6 @@ foreach($nombres in $usuarios.name){
     php.exe A:\Programas\Xampp\php\wp-cli.phar post create --post_author=$telefono --post_type=post --post_title="Perfil de $nombre" --post_content=$publicar --post_status=publish --user=$email
     }
 
+## Menú final
 Write-Host "                " -NoNewline; Write-Host "====================== El script finalizó. " -ForegroundColor Green -NoNewline; Write-Host "Made by " -ForegroundColor Yellow -NoNewline; Write-Host "www.github.com/MikeRuSe" -ForegroundColor Magenta -NoNewline; Write-Host " ======================" -ForegroundColor Green
 Start-Sleep -Seconds 2
