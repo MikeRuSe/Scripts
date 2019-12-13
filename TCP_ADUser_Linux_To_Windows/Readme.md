@@ -4,7 +4,7 @@
   ```Bash 
   nano PowerShell_Command.txt
   ```
-  ### Introducir en su interior:
+  ### Guardar lo siguiente en PowerShell_Command.txt
   ```Bash
   New-ADUser -Name "Pedro Jimenez" -GivenName "Peter" -Surname "Jimenez" -SamAccountName "P.Jimenez" -UserPrincipalName "Pedro.Jimenez@prueba.es" -Path "OU=uo1,DC=Andel,DC=Local" -AccountPassword(Read-Host -AsSecureString "Input Password") -Enabled $true
   ```
