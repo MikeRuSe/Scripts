@@ -1,7 +1,7 @@
 # Mandar y ejecutar un comando de powershell mediante el protocolo TCP desde Linux a un Servidor Windows
 ## Fichero necesario en Linux:
-  PowerShell_Command.txt
-  ```Bash 
+  
+  ```Bash PowerShell_Command.txt
   nano PowerShell_Command.txt
   ```
 ## Ejecutar el listener en el Servidor de Windows en el que vamos a crear usuarios
