@@ -1,2 +1,2 @@
 # Scripts
-## En este apartado de "Scripts" se encuentran Scripts, proyctos e ideas que me vayan surgiendo.
+## En este apartado de "Scripts" se encuentran Scripts, proyectos e ideas que me vayan surgiendo.
