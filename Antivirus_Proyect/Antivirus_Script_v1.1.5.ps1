@@ -23,7 +23,7 @@ Clear-Host
     Write-Host "                 " -NoNewline; Write-Host " Presione '1' para analizar un hash" -ForegroundColor Magenta
     Write-Host "                 " -NoNewline;Write-Host " Presione '2' para analizar un archivo" -ForegroundColor Magenta
     Write-Host "                 " -NoNewline;Write-Host " Presione '3' para analizar una carpeta y sus archivos (pueden no aparecer todos los datos de los archivos...)" -ForegroundColor Magenta
-    Write-Host "                 " -NoNewline;Write-Host " Presione '4' para cifrar un archivo sin terminar" -ForegroundColor Red
+    Write-Host "                 " -NoNewline;Write-Host " Presione '4' para cifrar un archivo ¡NO FUNCIONAL ACTUALMENTE!" -ForegroundColor Red
     Write-Host "                 " -NoNewline;Write-Host " Presione '5' para recuperar contraseñas WiFi" -ForegroundColor Magenta
     Write-Host "                 " -NoNewline;Write-Host " Presione otra tecla para salir" -ForegroundColor Red
     Write-Host " "
