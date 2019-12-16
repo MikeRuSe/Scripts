@@ -204,8 +204,9 @@ If ($opcion -eq "4"){
             $clave > "$carpetakey/$archivokey.txt"
                 Start-Sleep -Milliseconds 100
              ## Ciframos el archivo
+            $carpeta = Read-Host "Seleccione la carpeta en la que se encuentra el archivo"
             $archivo = Read-Host "Seleccione el archivo que desea cifrar"
-            Protect-File "$archivo" -Algorithm AES -Key $clave -RemoveSource
+            Protect-File "$carpeta/$archivo" -Algorithm AES -Key $clave -RemoveSource
                 Start-Sleep -Milliseconds 250
             Write-Host -ForegroundColor Green "El $archivo se encriptó correctamente"
         }
