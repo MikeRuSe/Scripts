@@ -1,4 +1,4 @@
-﻿## Buscar el hash de un archivo en VirusTotal
+## Buscar el hash de un archivo en VirusTotal
 ## Testeado y desarrollado en Windows 8.1 Pro y en Windows 10 Pro
 ## Registrar la API Key: https://www.virustotal.com/gui/join-us
 ## Es recomendable cambiar la API de abajo
@@ -22,10 +22,9 @@ Clear-Host
     Write-Host " "
     Write-Host "                 " -NoNewline; Write-Host " Presione '1' para analizar un hash" -ForegroundColor Magenta
     Write-Host "                 " -NoNewline;Write-Host " Presione '2' para analizar un archivo" -ForegroundColor Magenta
-    Write-Host "                 " -NoNewline;Write-Host " Presione '3' para analizar una carpeta y sus archivos (pueden no aparecer todos los datos de los archivos...)" -ForegroundColor Magenta
-    Write-Host "                 " -NoNewline;Write-Host " Presione '4' para encriptar un archivo" -ForegroundColor Magenta
-    Write-Host "                 " -NoNewline;Write-Host " Presione '5' para desencriptar un archivo" -ForegroundColor Magenta
-    Write-Host "                 " -NoNewline;Write-Host " Presione '6' para recuperar contraseñas WiFi" -ForegroundColor Magenta
+    Write-Host "                 " -NoNewline;Write-Host " Presione '3' para analizar una carpeta y sus archivos" -ForegroundColor Magenta
+    Write-Host "                 " -NoNewline;Write-Host " Presione '4' para des/encriptar un archivo (ejecutar como administrador)" -ForegroundColor Magenta
+    Write-Host "                 " -NoNewline;Write-Host " Presione '5' para recuperar contraseñas WiFi" -ForegroundColor Magenta
     Write-Host "                 " -NoNewline;Write-Host " Presione otra tecla para salir" -ForegroundColor Red
     Write-Host " "
 # Comienzo del script:
@@ -72,8 +71,7 @@ If ($opcion -eq "2"){
             Write-Host -ForegroundColor Green "No hay riesgos"
             }
         }
-        Else{
-
+     Else{
 If ($opcion -eq "3"){
          ## Iniciamos la variable del contador de virus
         $virus_counter= 0
@@ -162,7 +160,7 @@ If ($opcion -eq "4"){
          ## Instalar el Modulo de Cifrado
         Write-Host -ForegroundColor Yellow "¿Tiene instalado el módulo de cifrado? (Sin él no puede cifrar)"
         $modulo= Read-Host "Si/No"
-        for($modulo -eq "Si"){
+        If ($modulo -eq "No"){
              ## Descargamos el módulo
             $carpeta = Read-Host "Seleccione una carpeta para descargar el módulo de Encriptado PowerShell"
             Invoke-WebRequest -Uri "https://gallery.technet.microsoft.com/EncryptDecrypt-files-use-65e7ae5d/file/165403/14/FileCryptography.psm1" -OutFile "$carpeta\EncriptadorPSh.psm1"
@@ -188,86 +186,58 @@ If ($opcion -eq "4"){
                 Start-Sleep -Milliseconds 450
             Set-ExecutionPolicy Restricted
             }
-        for($modulo -ne "Si"){
+        If ($modulo -ne "No"){
             Write-Host -ForegroundColor Yellow "Ha seleccionado no instalar el módulo, si no lo tiene intalado, instálelo"
                 Start-Sleep -Seconds 2
             }
-         ## A continuación creamos una clave de encriptado en AES 256
-        $clave = New-CryptographyKey -Algorithm AES 
+        Write-Host -ForegroundColor Green "¿Qué desea hacer?"
+        Write-Host -ForegroundColor Green "1: Encriptar?"
+        Write-Host -ForegroundColor Green "2: Desencriptar?"
+        $valorDE= (Read-Host "Inserte un valor")
+        if ($valorDE -eq "1"){
+             ## A continuación creamos una clave de encriptado en AES 256
+            $clave = New-CryptographyKey -Algorithm AES 
             Start-Sleep -Milliseconds 300
-         ## Guardamos la clave en un fichero
-        $carpetakey = Read-Host "Seleccione una carpeta para guardar la clave"
-        $archivokey = Read-Host "Introduzca el nombre del archivo a guardar (sin extensión ej .ps1)"
-        $clave > "$carpetakey/$archivokey.txt"
+             ## Guardamos la clave en un fichero
+            $carpetakey = Read-Host "Seleccione una carpeta para guardar la clave"
+            $archivokey = Read-Host "Introduzca el nombre del archivo a guardar (sin extensión ej .ps1)"
+            $clave > "$carpetakey/$archivokey.txt"
+                Start-Sleep -Milliseconds 100
+             ## Ciframos el archivo
+            $archivo = Read-Host "Seleccione el archivo que desea cifrar"
+            Protect-File "$archivo" -Algorithm AES -Key $clave -RemoveSource
+                Start-Sleep -Milliseconds 250
+            Write-Host -ForegroundColor Green "El $archivo se encriptó correctamente"
+        }
+        if ($valorDE -eq "2"){
+             ## Seleccionamos el archivo a descifrar
+            $archivo = Read-Host "Seleccione el archivo que desea descifrar"
+             ## Introducimos la clave
+            Write-Host -ForegroundColor Magenta "¿Cómo desea introducir la clave de desencriptado?"
+            Write-Host -ForegroundColor Green "Introduzca 1 si desdea introducir la clave de forma manual"
+            Write-Host -ForegroundColor Green "Introduzca 2 si desdea tiene el archivo de la clave"
+            $claveDes= Read-Host "Inserte un valor"
             Start-Sleep -Milliseconds 100
-         ## Ciframos el archivo
-        $archivo = Read-Host "Seleccione el archivo que desea cifrar"
-        Protect-File "$archivo" -Algorithm AES -Key $clave -RemoveSource
-            Start-Sleep -Milliseconds 250
-        Write-Host -ForegroundColor Green "El $archivo se encriptó correctamente"
+              ## Manual
+             if ($claveDes -eq "1"){
+                Write-Host -ForegroundColor Yellow "Inserte la clave AES"
+                $claveDesencriptado= Read-Host "Inserte"
+                Unprotect-File "$archivo" -Algorithm AES -Key "$claveDesencriptado" -RemoveSource
+                }
+            if ($claveDes -eq "2"){
+                $carpetaclave = Read-Host "Seleccione la carpeta donde que se encuentra la clave de desencriptado"
+                $archivoclave = Read-Host "Introduzca el nombre del archivo de la clave (sin la extensión ej .exe)"
+                    $claveDesencriptado= Get-Content "$carpetaclave/$archivoclave.txt"
+                Start-Sleep -Milliseconds 100
+            ## Desciframos el archivo
+            Unprotect-File "$archivo" -Algorithm AES -Key $claveDes -RemoveSource
+                Start-Sleep -Milliseconds 250
+            Write-Host -ForegroundColor Green "El $archivo se desencriptó correctamente"
+                }
+            }
         }
         Else{
 If ($opcion -eq "5"){
-         ## Instalar el Modulo de Cifrado
-        Write-Host -ForegroundColor Yellow "¿Tiene instalado el módulo de cifrado? (Sin él no puede descifrar)"
-        $modulo= Read-Host "Si/No"
-        for($modulo -eq "Si"){
-             ## Descargamos el módulo
-            $carpeta = Read-Host "Seleccione una carpeta para descargar el módulo de Encriptado PowerShell"
-            Invoke-WebRequest -Uri "https://gallery.technet.microsoft.com/EncryptDecrypt-files-use-65e7ae5d/file/165403/14/FileCryptography.psm1" -OutFile "$carpeta\EncriptadorPSh.psm1"
-             ## Deshabilitamos la restricción de ejecución de scripts
-            Write-Host -ForegroundColor Yellow 'A CONTINUACIÓN SE LE ABRIRÁ UNA PESTAÑA, SELECCIONE LA OPCIÓN "SI A TODO"'
-                Start-Sleep -Seconds 2
-            Write-Host -ForegroundColor Green 'Se está ejecutando... "Set-ExecutionPolicy Unrestricted"'
-                Start-Sleep -Milliseconds 450
-            Set-ExecutionPolicy Unrestricted
-            Write-Host -ForegroundColor Yellow 'A CONTINUACIÓN SE LE ABRIRÁ UNA PESTAÑA, SELECCIONE LA OPCIÓN "SI A TODO"'
-                Start-Sleep -Seconds 2
-             ## Importamos el módulo descargado
-            Write-Host -ForegroundColor Green "Se está ejecutando... Import-Module $carpeta\EncriptadorPSh.psm1"
-                Start-Sleep -Milliseconds 450
-            Import-Module "$carpeta\EncriptadorPSh.psm1"
-                Start-Sleep -Seconds 5
-             ## Borramos el módulo de la carpeta de descargas una vez instalado
-            rm $carpeta\EncriptadorPSh.psm1
-            Write-Host -ForegroundColor Yellow 'REVIRTIENDO CONFIGURACIÓN DE SEGURIDAD, SELECCIONE "SI A TODO"'
-                Start-Sleep -Seconds 2
-             ## Dejamos el equipo protegido frente a scripts externos
-            Write-Host -ForegroundColor Green 'Se está ejecutando... "Set-ExecutionPolicy Restricted"'
-                Start-Sleep -Milliseconds 450
-            Set-ExecutionPolicy Restricted
-            }
-        for($modulo -ne "Si"){
-            Write-Host -ForegroundColor Yellow "Ha seleccionado no instalar el módulo, si no lo tiene intalado, instálelo"
-                Start-Sleep -Seconds 2
-            }
-         ## Seleccionamos el archivo a descifrar
-        $archivo = Read-Host "Seleccione el archivo que desea descifrar"
-         ## Introducimos la clave
-        Write-Host -ForegroundColor Magenta "¿Cómo desea introducir la clave de desencriptado?"
-        Write-Host -ForegroundColor Green "Introduzca 1 si desdea introducir la clave de forma manual"
-        Write-Host -ForegroundColor Green "Introduzca 2 si desdea tiene el archivo de la clave"
-        $claveDes= Read-Host "Inserte un valor"
-            Start-Sleep -Milliseconds 100
-         ## Manual
-        for ($claveDes -eq 1){
-            Write-Host -ForegroundColor Yellow "Inserte la clave AES"
-            $claveDesencriptado= Read-Host "Inserte"
-            Unprotect-File "$archivo" -Algorithm AES -Key "$claveDesencriptado" -RemoveSource
-            }
-        for ($claveDes -eq 2){
-            $carpetaclave = Read-Host "Seleccione la carpeta donde que se encuentra la clave de desencriptado"
-            $archivoclave = Read-Host "Introduzca el nombre del archivo de la clave (sin la extensión ej .exe)"
-                $claveDesencriptado= Get-Content "$carpetaclave/$archivoclave.txt"
-            Start-Sleep -Milliseconds 100
-         ## Desciframos el archivo
-        
-        Unprotect-File "$archivo" -Algorithm AES -Key $claveDes -RemoveSource
-            Start-Sleep -Milliseconds 250
-        Write-Host -ForegroundColor Green "El $archivo se desencriptó correctamente"
-        }
-        Else{
-If ($opcion -eq "6"){
     ## Script para recuperar contraseñas de WiFi en el ordenador
      ## Obtenemos la información de las SSID a las que se ha conectado nuestro PC
      $WifiSSIDs = (netsh wlan show profiles | Select-String ': ' ) -replace ".*:\s+"
@@ -282,10 +252,9 @@ If ($opcion -eq "6"){
       }
 Else{
          ## Cualquier otro carácter introducido que no pertenezca a los declarados más arriba hará que se cancele la ejecución del script
-        Write-Host "No se analizará nada" -ForegroundColor Red
-     }
+        Write-Host "No se realizará nada" -ForegroundColor Red
     }
-   } 
-  }
+   }
+  } 
  }
 }
