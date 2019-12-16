@@ -201,7 +201,7 @@ If ($opcion -eq "4"){
              ## Guardamos la clave en un fichero
             $carpetakey = Read-Host "Seleccione una carpeta para guardar la clave"
             $archivokey = Read-Host "Introduzca el nombre del archivo a guardar (sin extensión ej .ps1)"
-            $clave > "$carpetakey/$archivokey.txt"
+            $clave | ConvertFrom-SecureString > "$carpetakey/$archivokey.txt"
                 Start-Sleep -Milliseconds 100
              ## Ciframos el archivo
             $carpeta = Read-Host "Seleccione la carpeta en la que se encuentra el archivo"
