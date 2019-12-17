@@ -7,4 +7,5 @@ Script en PowerShell con el que podemos:
 - Recuperar contraseñas WiFi
 - Guardar logs del análisis (v1.1.4)
 - Encriptar y desencriptar archivos (v1.1.6)
+- Encriptar y desencriptar archivos con GPG2 (v1.1.6.1)
 ### by MikeRuSe
