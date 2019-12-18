@@ -1,4 +1,4 @@
-﻿## Buscar el hash de un archivo en VirusTotal
+## Buscar el hash de un archivo en VirusTotal
 ## Testeado y desarrollado en Windows 8.1 Pro y en Windows 10 Pro
 ## Registrar la API Key: https://www.virustotal.com/gui/join-us
 ## Es recomendable cambiar la API de abajo
@@ -157,6 +157,11 @@ If ($opcion -eq "3"){
      }
      Else{
 If ($opcion -eq "4"){
+        Write-Host -ForegroundColor Yellow "CIFRADO/DESCIFRADO v1.0.7"
+        Write-Host -ForegroundColor Magenta "¿Qué desea hacer?"
+        Write-Host -ForegroundColor Cyan "1: CIFRAR "
+        Write-Host -ForegroundColor Cyan "2: DESCIFRAR "
+        $valor= Read-Host "Introduzca una opción"
         if($valor -eq 1){
         #### CIFRAR ####
 
@@ -246,6 +251,7 @@ If ($opcion -eq "4"){
             $cadenadescrifrada | Out-File $ruta1
                         
             Write-Host -ForegroundColor Green "Se ha creado el fichero con el contenido descifrado en" $ruta}
+            Else{ Write-Host -ForegroundColor Red "No seleccionó una opción válida"}
         }
         Else{
 If ($opcion -eq "5"){
