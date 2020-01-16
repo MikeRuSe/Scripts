@@ -44,8 +44,7 @@ If ($opcion -eq "1"){
         Write-Host -ForegroundColor Cyan "Total Scans : " -NoNewline; Write-Host $VTresultado.total
         Write-Host -ForegroundColor Cyan "Permalink   : " -NoNewline; Write-Host $VTresultado.permalink
     }
-    Else{
-If ($opcion -eq "2"){
+Elseif ($opcion -eq "2"){
          ## Archivo
         Write-Host "Introduzca la ubicación de la carpeta del archivo (C:\Users\Administrador) sin la barra del final" -ForegroundColor Yellow
         $ubicacion= Read-Host "Introduzca la ruta del archivo"
@@ -71,8 +70,7 @@ If ($opcion -eq "2"){
             Write-Host -ForegroundColor Green "No hay riesgos"
             }
         }
-     Else{
-If ($opcion -eq "3"){
+Elseif ($opcion -eq "3"){
          ## Iniciamos la variable del contador de virus
         $virus_counter= 0
          ## Análisis de directorios y sus archivos
@@ -155,8 +153,7 @@ If ($opcion -eq "3"){
             }
           
      }
-     Else{
-If ($opcion -eq "4"){
+Elseif ($opcion -eq "4"){
         Write-Host -ForegroundColor Yellow "CIFRADO/DESCIFRADO v1.0.7"
         Write-Host -ForegroundColor Magenta "¿Qué desea hacer?"
         Write-Host -ForegroundColor Cyan "1: CIFRAR "
@@ -253,8 +250,7 @@ If ($opcion -eq "4"){
             Write-Host -ForegroundColor Green "Se ha creado el fichero con el contenido descifrado en" $ruta}
             Else{ Write-Host -ForegroundColor Red "No seleccionó una opción válida"}
         }
-        Else{
-If ($opcion -eq "5"){
+Elseif ($opcion -eq "5"){
     ## Script para recuperar contraseñas de WiFi en el ordenador
      ## Obtenemos la información de las SSID a las que se ha conectado nuestro PC
      $WifiSSIDs = (netsh wlan show profiles | Select-String ': ' ) -replace ".*:\s+"
@@ -271,7 +267,3 @@ Else{
          ## Cualquier otro carácter introducido que no pertenezca a los declarados más arriba hará que se cancele la ejecución del script
         Write-Host "No se realizará nada" -ForegroundColor Red
     }
-   }
-  } 
- }
-}
