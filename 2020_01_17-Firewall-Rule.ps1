@@ -1,4 +1,3 @@
-``` Poweshell
 $Titulo = 'FIREWALL RULES by www.github.com/MikeRuSe'
 Clear-Host
     Write-Host "                " -NoNewline; Write-Host "====================== $Titulo ======================" -ForegroundColor Gray
@@ -42,4 +41,3 @@ $nombre= Read-Host "NOMBRE DE LA REGLA"
 Disable-NetFirewallRule -Name $nombre
 }
 else { Write-Host "No ha seleccionado nada"}
-´´´
