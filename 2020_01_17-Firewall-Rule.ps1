@@ -33,6 +33,7 @@ elseif ($opcion -eq 3){
 ## Ver logs:
 $block= ((get-content C:\Windows\System32\LogFiles\Firewall\pfirewall.log).count - 6)
 Write-Host "Se han bloqueado $block paquetes" -ForegroundColor Green
+[System.Windows.MessageBox]::Show("Se han bloqueado $block paquetes", 'Firewall by MikeRuSe')
 }
 elseif ($opcion -eq 4){
 $nombre= Read-Host "NOMBRE DE LA REGLA"
