@@ -13,11 +13,14 @@
 
 ## Crear estructuras Unidades Organizativas:
 New-ADOrganizationalUnit -Name "Andel" -ProtectedFromAccidentalDeletion $false -Path "DC=Andel,DC=local"
+Write-Host "Unidad Organizativa 'Andel' creada " -ForegroundColor Cyan
 
 'SMIR1','SMIR2', 'ITEL1', 'ITEL2', 'ASIR1', 'ASIR2' > ou.txt
 
 foreach($OU in (gc ou.txt)){
     New-ADOrganizationalUnit -Name "$OU"  -ProtectedFromAccidentalDeletion $false -Path "OU=Andel,DC=Andel,DC=local"
+    Write-Host "Unidad Organizativa '$OU' creada " -ForegroundColor Cyan
+
 }
 
 'SMIR1,User10','SMIR1,User20', 'SMIR1,User30', 'SMIR1,User40', 'SMIR1,User50' > user.txt
@@ -29,9 +32,13 @@ foreach($OU in (gc ou.txt)){
 
 foreach($vars in (gc user.txt)){
     New-ADuser -name $vars.split(",")[1] -sam $vars.split(",")[1] -accountpassword (convertto-securestring "Andel_2020" -asplaintext -force) -enable $true
+    $usuario= $vars.split(",")[1]
+    Write-Host "Usuario '$usuario' creado " -ForegroundColor Green
     $VAR= $vars.split(",")[0]
     New-ADGroup -name $vars.split(",")[0] -GroupScope Global -Path "OU=$VAR,OU=Andel,DC=Andel,DC=local"
+    Write-Host "Grupo '$VAR' creado " -ForegroundColor Green
     Add-ADGroupMember $vars.split(",")[0] -Members $vars.split(",")[1]
+    Write-Host "Usuario '$usuario' se introdujo dentro del grupo '$VAR' " -ForegroundColor Yellow
     }
 
 ## Importamos el módulo:
@@ -54,6 +61,8 @@ foreach($usuario in (gc user.txt)){
 'SMIR1,User10','SMIR1,User20', 'SMIR1,User30', 'SMIR1,User40', 'SMIR1,User50' > user.txt
 foreach($vars in (gc user.txt)){
     Disable-ADAccount -Identity $vars.split(",")[1] 
+    $cuenta= $vars.split(",")[1] 
+    Write-Host "Cuenta '$cuenta' DESHABILITADA" -ForegroundColor Red
     }
 
 New-ADOrganizationalUnit -Name "Deshabilitados"  -ProtectedFromAccidentalDeletion $false -Path "OU=Andel,DC=Andel,DC=local"
@@ -66,6 +75,13 @@ foreach($vars in (gc user.txt)){
 ## BORRADOS:
 
 Remove-ADOrganizationalUnit "OU=Andel,DC=Andel,DC=local" -Recursive
+Write-Host "Unidad Organizativa 'Andel' borrada " -ForegroundColor Red
+
+################################################
+################################################
+###############   EXTRA   ######################
+################################################
+################################################
 
 ## Instalar software
 ## Invoke-Command NombreDelPC -ErrorAction Stop -ScriptBlock{Install-Package -Name "C:\Windows\Installer\12df2aa.msi" -force} 
