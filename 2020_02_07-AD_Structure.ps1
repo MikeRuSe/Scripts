@@ -86,9 +86,15 @@ Write-Host "Unidad Organizativa 'Andel' borrada " -ForegroundColor Red
 ## Instalar software
 ## Invoke-Command NombreDelPC -ErrorAction Stop -ScriptBlock{Install-Package -Name "C:\Windows\Installer\12df2aa.msi" -force} 
 Install-Package -Name "C:\Windows\Installer\12df2aa.msi" -force
+# Script automatizado
+function instalar($aplicacion){
+foreach($ordenador in (Get-ADComputer -Filter * | select name).name | Select-String "win*"){
+    Invoke-Command -ComputerName $ordenador -ScriptBlock {Install-Package -Name "$aplicacion" -force}
+}
+instalar C:\Windows\Installer\12df2aa.msi
+
+## Revisar paquetes / software instalado en un equipo
 Get-AppxPackage -AllUsers
-
-
 
 ## Contar procesos de un usuario
 ## Invoke-Command NombreDelPC -ErrorAction Stop -ScriptBlock{ (Get-Process -IncludeUserName | Where-Object {$_.username -match "Administrador"}).count } 
@@ -96,6 +102,8 @@ $procesos= (Get-Process -IncludeUserName | Where-Object {$_.username -match "Adm
 if ($procesos -gt 10){
     ([System.Windows.MessageBox]::Show("CIERRA APPS QUE ESTAS CONSUMIENDO MUCHA ENERGIA", 'No mas de 10 procesos simultáneos'))
     }
+
+
 
 ## Impresion
 foreach ($impresora in Get-Printer)
@@ -116,5 +124,39 @@ foreach ($impresora in Get-Printer)
     }
 }
 
+
+
 ## Copias de seguridad
-dir c:/hola -r | ? {!($_.psiscontainer) -AND $_.lastwritetime -gt (get-date).date} | % {Copy-Item -path $_.fullname -destination /hola1}
+### Opción A:
+Get-ChildItem c:/hola -Recurse | ? {!($_.psiscontainer) -AND $_.lastwritetime -gt (get-date).date} | % {Copy-Item -path $_.fullname -destination /hola1}
+### Opción B:
+mkdir carpeta1
+"hola" | Out-File .\carpeta1\hola.txt
+Copy-Item .\carpeta1 .\carpeta2 -Recurse
+# Creación de la función
+function comparardirectorios($carpeta1,$carpeta2)
+{
+    foreach($fichero in ls $carpeta1)
+    {
+        foreach($ficheroc in ls $carpeta2)
+        {
+            if($fichero.LastWriteTime -gt $ficheroc.LastWriteTime)
+            {
+                "SON DISTINTOS Y EL FICHERO1 ES MÁS NUEVO QUE FICHERO 2", $fichero.LastWriteTime, $ficheroc.LastWriteTime
+                Copy-Item $carpeta1\$fichero $carpeta2
+            
+            }
+            elseif($fichero.LastWriteTime -lt $ficheroc.LastWriteTime)
+            {
+                "SON DISTINTOS Y EL FICHERO2 ES MÁS NUEVO QUE FICHERO 1", $fichero.LastWriteTime, $ficheroc.LastWriteTime
+                Copy-Item $carpeta2\$ficheroc $carpeta1
+            }
+            else
+            {
+               "SON IGUALES", $fichero.LastWriteTime, $ficheroc.LastWriteTime
+            }
+        }
+    }
+}
+comparardirectorios .\carpeta1 .\carpeta2
+
