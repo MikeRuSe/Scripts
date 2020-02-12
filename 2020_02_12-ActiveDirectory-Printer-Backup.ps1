@@ -25,6 +25,7 @@ $pass=Read-Host "Contraseña"
 #-----------------------------------------------------------------------------------------------------------#
 
 ## Creación estructura AD según fichero
+# CONSEJO: Si es un AD de menos de 10 usuarios (ya que añade timeouts) eliminar los "#" de las líneas 36, 40, 45 y 50 para una mejora visual del programa. 
 foreach($vars in (gc create.csv)){
     $OU= $vars.split(",")[0]
     $grupo= $vars.split(",")[1]
