@@ -126,7 +126,7 @@ function impresora ($limit){
         foreach ($idborrar in $ID){
             Remove-PrintJob -ID $idborrar -PrinterName "Brother Color Leg Type1 Class Driver"
            } 
-        ([System.Windows.MessageBox]::Show("Recuerda que no puedes imprimir más de 10 archivos, debes cuidar el medio ambiente :) ", 'Límite de impresión'))
+        ([System.Windows.MessageBox]::Show("Recuerda que no puedes imprimir más de $limit archivos, debes cuidar el medio ambiente :) ", 'Límite de impresión'))
         } 
 } impresora "INTROUCE EL LÍMITE DE ARCHIVOS A IMPRIMIR"
 
